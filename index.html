@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Misión Escape: Atrapados en el Equipo Imposible</title>
+
+</head>
+
+<body>
+
+    <div class="escape-container">
+
+        <!-- ELEMENTO INTERNO FLOTANTE PARA MENSAJES DE LOGROS (TOAST) -->
+        <div id="toast-achievement" class="toast-milestone">
+            <span>🔑</span>
+            <div>
+                <b>¡Logro desbloqueado!</b>
+                <span id="toast-text">Has conseguido la Llave</span>
+            </div>
+        </div>
+
+        <!-- ================= PANTALLA INICIAL DE CONTROL ================= -->
+        <div id="screen-gate" class="screen active">
+            <div class="game-header">
+                <span class="room-icon">🚪</span>
+                <h1 id="titulo">Misión Escape: Atrapados en el Equipo Imposible</h1>
+                <h2>Tu equipo debe recuperar las 5 llaves de la colaboración para escapar.</h2>
+            </div>
+
+            <div class="story-box">
+                Un grupo de estudiantes quedó atrapado dentro de una sala virtual creada por el <strong>Profesor
+                    Colaboratus</strong>. Para escapar deberán recuperar las 5 Llaves de la Colaboración. Cada llave se
+                obtiene resolviendo un desafío basado en situaciones reales que ocurren en los equipos de trabajo.
+            </div>
+
+            <div class="input-block">
+                <label for="reg-name">Nombre completo del estudiante:</label>
+                <input type="text" id="reg-name" placeholder="Ej. Jésica Martínez García" autocomplete="off">
+            </div>
+
+            <div class="input-block">
+                <label for="reg-account">Número de cuenta institucional:</label>
+                <input type="text" id="reg-account" placeholder="Ej. 1726483" autocomplete="off">
+            </div>
+
+            <button id="btn-engage" class="btn-action" >
+                <span>▶ Comenzar misión</span>
+            </button>
+        </div>
+
+        <!-- ================= PANTALLA DE DESAFÍOS DE SALA (JUEGO) ================= -->
+        <div id="screen-room" class="screen">
+            <!-- PANEL INTEGRADO DE ESTADO (HUD) -->
+            <div class="hud-dashboard">
+                <div class="hud-item">
+                    <span class="hud-label">Progreso de Escape</span>
+                    <div class="bar-wrapper">
+                        <div id="progress-fill" class="bar-fill"></div>
+                    </div>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Cámara de Llaves</span>
+                    <div class="keys-row">
+                        <span class="key-slot" id="slot-k1">🔑</span>
+                        <span class="key-slot" id="slot-k2">🔑</span>
+                        <span class="key-slot" id="slot-k3">🔑</span>
+                        <span class="key-slot" id="slot-k4">🔑</span>
+                        <span class="key-slot" id="slot-k5">🔑</span>
+                    </div>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Tiempo Invertido</span>
+                    <span id="hud-clock" class="hud-timer">00:00</span>
+                </div>
+            </div>
+
+            <!-- CONTENEDOR CENTRAL DE ESCENARIOS -->
+            <div class="scenario-box">
+                <div id="room-tag" class="scenario-tag">Cargando Reto...</div>
+                <div id="room-desc" class="scenario-text">Estructura del escenario simulado...</div>
+
+                <div class="challenge-question">
+                    <span>💡</span>
+                    <span id="room-question">Pregunta crítica...</span>
+                </div>
+            </div>
+
+            <!-- CAPTURA DE REFLEXIÓN -->
+            <textarea id="room-input"
+                placeholder="Escribe tu propuesta analítica de solución aquí... (Mínimo 40 caracteres)"></textarea>
+
+            <div class="meta-counter-row">
+                <span id="room-counter" class="counter-msg">0 / 40 caracteres</span>
+                <span id="room-err" class="err-banner">⚠️ Requiere al menos 40 caracteres para activar la
+                    cerradura.</span>
+            </div>
+
+            <button id="btn-unlock" class="btn-action">
+                <span>🔓 Obtener llave</span>
+            </button>
+        </div>
+
+        <!-- ================= PANTALLA FINAL DE ESCAPE ================= -->
+        <div id="screen-victory" class="screen">
+            <div class="game-header">
+                <span class="room-icon">🎉</span>
+                <h1 class="room-icon-h1">MISIÓN COMPLETADA</h1>
+                <h2 class="room-icon-h2">¡Has recuperado todas las Llaves de la Colaboración y lograste escapar del
+                    Equipo Imposible!</h2>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="hud-label">Estudiante</span>
+                        <p id="out-name">-</p>
+                    </div>
+                    <div class="summary-item">
+                        <span class="hud-label">Número de Cuenta</span>
+                        <p id="out-account">-</p>
+                    </div>
+                    <div class="summary-item">
+                        <span class="hud-label">Fecha de Cierre</span>
+                        <p id="out-date">-</p>
+                    </div>
+                    <div class="summary-item">
+                        <span class="hud-label">Tiempo de Fuga</span>
+                        <p id="out-time">00:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="room-icon-h3">
+                Reporte Final de Llaves Obtenidas</h3>
+
+            <div class="table-scroller">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Llave</th>
+                            <th>Respuesta y Propuesta de Solución</th>
+                        </tr>
+                    </thead>
+                    <tbody id="report-rows">
+                        <!-- Filas dinámicas -->
+                    </tbody>
+                </table>
+            </div>
+
+            <button id="btn-export" class="btn-action" >
+                <span>📸 Descargar Evidencia</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- CANVAS OCULTO PARA EXPORTACIÓN AUTOMÁTICA -->
+    <canvas id="renderCanvas"></canvas>
+<script src="Script.js"></script>
+</body>
+
+</html>
